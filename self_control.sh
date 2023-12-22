@@ -21,12 +21,22 @@ DURATION=$((60 * 8))
 SITES=()
 
 show_help() {
-    echo "Usage: $0 [-d DURATION] [-h]"
+#  add example
+    echo "Self control script"
+    echo
+    echo "Usage: $0 [-d DURATION] [-s SITES] [-h]"
     echo
     echo "  -d, --duration  Set the duration for the script in minutes."
     echo "                  Default is 480 minutes (8 hours)."
     echo "                  The value must be between 1 and 1920."
-    echo
+    echo "  -s, --sites     Set the sites to block."
+    echo "                  Default is empty."
+    echo "                  The value must be a list of sites separated by spaces."
+    echo "                  Example: -s facebook.com twitter.com"
+    echo "  -f, --file      Set the file with sites to block."
+    echo "                  Default is empty."
+    echo "                  The value must be a path to file."
+    echo "                  Example: -f /home/user/sites.txt"
     echo "  -h, --help      Display this help message and exit."
     exit 0
 }
@@ -49,6 +59,14 @@ parse_args() {
                       shift
                       while [[ "$#" -gt 0 ]] && ! [[ "$1" =~ ^- ]]; do
                           SITES+=("$1")
+                          shift
+                      done
+                      continue
+                      ;;
+          -f|--file)
+                      shift
+                      while [[ "$#" -gt 0 ]] && ! [[ "$1" =~ ^- ]]; do
+                          SITES+=($(cat "$1"))
                           shift
                       done
                       continue
