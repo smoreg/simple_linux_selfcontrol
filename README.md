@@ -17,3 +17,4 @@ TODO:
 1. Add nohup check that hosts wasnt unblocked
 2. restart after system restart
 3. hide process from easiest ways to kill it
+4. checl sign
